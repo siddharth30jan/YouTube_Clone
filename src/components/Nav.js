@@ -4,7 +4,7 @@ const style = {
   justifyContent: "space-around",
   background: "grey"
 };
-const Nav = ({ videoList, fvideoList }) => {
+const Nav = ({ fvideoList, fcurVid }) => {
   const [result, fResult] = useState();
   const myFunction = async e => {
     //API calling
@@ -13,9 +13,11 @@ const Nav = ({ videoList, fvideoList }) => {
         `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&key=AIzaSyB-9jZwJX4l3i68xcfXN9SFB5eQjxnVJgc&q=${result}`
       );
       let data = await response.json();
-      // console.log(data.items)
-
-      fvideoList(data.items);
+     
+      fcurVid(data.items[0]);
+      data.items.shift()
+     //  console.log(data.items)
+       fvideoList(data.items);
     } catch (err) {
       console.log(err);
     }
